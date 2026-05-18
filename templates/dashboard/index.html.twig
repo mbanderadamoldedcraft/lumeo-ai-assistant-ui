@@ -1,0 +1,486 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Good Afternoon, Jason - Lumeo Dashboard{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex bg-[#f8fafc] text-slate-800 antialiased selection:bg-purple-100">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-[76px] h-screen sticky top-0 bg-white border-r border-slate-200/60 flex flex-col items-center justify-between py-5 shrink-0 z-20 overflow-y-hidden">
+        
+        <!-- Top Logo -->
+        <div class="flex flex-col items-center gap-2.5">
+            <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-sm hover:scale-105 transition duration-200 cursor-pointer">
+                <!-- Spoke Sunburst Logo -->
+                <svg class="w-6 h-6" viewBox="0 0 100 100" fill="currentColor">
+                    <circle cx="50" cy="50" r="10" />
+                    <g stroke="currentColor" stroke-width="6" stroke-linecap="round">
+                        <line x1="50" y1="20" x2="50" y2="8" />
+                        <line x1="50" y1="80" x2="50" y2="92" />
+                        <line x1="20" y1="50" x2="8" y2="50" />
+                        <line x1="80" y1="50" x2="92" y2="50" />
+                        <line x1="29" y1="29" x2="20" y2="20" />
+                        <line x1="71" y1="71" x2="80" y2="80" />
+                        <line x1="29" y1="71" x2="20" y2="80" />
+                        <line x1="71" y1="29" x2="80" y2="20" />
+                        <line x1="39" y1="22" x2="34" y2="10" />
+                        <line x1="61" y1="78" x2="66" y2="90" />
+                        <line x1="22" y1="39" x2="10" y2="34" />
+                        <line x1="78" y1="61" x2="90" y2="66" />
+                        <line x1="22" y1="61" x2="10" y2="66" />
+                        <line x1="78" y1="39" x2="90" y2="34" />
+                        <line x1="39" y1="78" x2="34" y2="90" />
+                        <line x1="61" y1="22" x2="66" y2="10" />
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- Sidebar Navigation Icons -->
+            <nav class="flex flex-col gap-1.5 w-full px-2" id="sidebar-nav">
+                <!-- Home (Active) -->
+                <button data-tab="home" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl bg-purple-50 text-purple-600 border border-purple-100/60 transition group cursor-pointer" title="Home">
+                    <span class="absolute left-[-8px] w-[3px] h-6 bg-purple-600 rounded-r-full transition-transform" id="active-indicator"></span>
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                </button>
+                
+                <!-- Chat -->
+                <button data-tab="chat" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="Chats">
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </button>
+                
+                <!-- History -->
+                <button data-tab="history" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="History">
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <polyline points="3 3 3 8 8 8"/>
+                        <line x1="12" y1="7" x2="12" y2="12"/>
+                        <line x1="12" y1="12" x2="16" y2="14"/>
+                    </svg>
+                </button>
+                
+                <!-- Assistant / Bot -->
+                <button data-tab="bot" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="AI Assistants">
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="10" rx="2"/>
+                        <circle cx="12" cy="5" r="2"/>
+                        <path d="M12 7v4"/>
+                        <line x1="8" y1="16" x2="8.01" y2="16"/>
+                        <line x1="16" y1="16" x2="16.01" y2="16"/>
+                        <path d="M2 14h1"/>
+                        <path d="M21 14h1"/>
+                    </svg>
+                </button>
+                
+                <!-- Folders -->
+                <button data-tab="folders" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="Library">
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </button>
+                
+                <!-- Share -->
+                <button data-tab="share" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="Sharing">
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                </button>
+                
+                <!-- Database -->
+                <button data-tab="database" class="sidebar-tab relative w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="Data Sources">
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                        <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="flex flex-col items-center gap-2 w-full px-2">
+            <!-- Support / Headphones -->
+            <button class="w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="Help & Support">
+                <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 1 2 2h1a2 2 0 0 1 2-2v-3a2 2 0 0 1-2-2H3z"/>
+                </svg>
+            </button>
+            
+            <!-- Settings -->
+            <button class="w-12 h-12 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition cursor-pointer" title="Settings">
+                <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+            </button>
+            
+            <!-- User Avatar -->
+            <div class="w-9 h-9 rounded-full overflow-hidden border border-slate-200 mt-2 hover:scale-105 transition cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120&h=120" alt="Jason" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 flex flex-col min-w-0 bg-[#fbfcfd]">
+        
+        <!-- TOP HEADER ROW -->
+        <header class="h-[76px] px-8 flex items-center justify-between border-b border-slate-100 bg-[#fbfcfd]">
+            
+            <!-- Model Indicator: ChatGPT 4o -->
+            <div class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200/80 rounded-2xl text-[14px] font-semibold text-slate-700 shadow-sm select-none">
+                <svg class="w-4 h-4 text-violet-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                </svg>
+                <span>ChatGPT 4o</span>
+                <svg class="w-3 h-3 text-slate-400 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </div>
+            
+            <!-- Right Actions Buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Search thread -->
+                <button class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200/40 rounded-xl text-[14px] font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition active:scale-95 cursor-pointer" id="search-btn">
+                    <svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    Search thread
+                </button>
+                
+                <!-- Invite -->
+                <button class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200/40 rounded-xl text-[14px] font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition active:scale-95 cursor-pointer" id="invite-btn">
+                    <svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <line x1="19" y1="8" x2="19" y2="14"/>
+                        <line x1="22" y1="11" x2="16" y2="11"/>
+                    </svg>
+                    Invite
+                </button>
+                
+                <!-- + New Thread -->
+                <button class="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-2xl text-[14px] font-semibold shadow-sm hover:bg-slate-800 transition active:scale-95 cursor-pointer" id="new-thread-btn">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    New Thread
+                </button>
+            </div>
+        </header>
+        
+        <!-- CENTER MAIN WORKSPACE -->
+        <div class="flex-1 flex flex-col justify-center items-center px-6 py-12 max-w-[820px] mx-auto w-full">
+            
+            <!-- Sphere Icon -->
+            <div class="sphere-container">
+                <div class="sphere-glass"></div>
+                <div class="sphere-shadow"></div>
+            </div>
+            
+            <!-- Greeting & Hero Text -->
+            <h1 class="text-[38px] font-bold text-slate-800 tracking-tight text-center leading-[1.18] mt-8">
+                Good Afternoon, Jason <br>
+                What's on <span class="text-[#ab51e5] inline-block font-bold">your mind?</span>
+            </h1>
+            
+            <!-- Main Question/Input Area -->
+            <div class="w-full bg-white border border-slate-200/50 rounded-[28px] shadow-[0_8px_30px_rgb(241,245,249,0.5)] p-5 mt-10 flex flex-col gap-4 focus-within:border-slate-300 transition duration-300">
+                
+                <!-- Textarea Row -->
+                <div class="flex gap-3 items-start">
+                    <div class="pt-1.5 text-slate-400 shrink-0">
+                        <svg class="w-[18px] h-[18px] text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <textarea id="ai-input" rows="2" class="w-full border-0 p-0 text-[15px] font-normal text-slate-800 placeholder-slate-400 focus:ring-0 focus:outline-none bg-transparent resize-none leading-relaxed" placeholder="Ask AI a question or make a request..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Bottom controls -->
+                <div class="flex items-center justify-between border-t border-slate-100 pt-4 mt-1">
+                    <div class="flex items-center gap-2">
+                        <!-- Attach Button -->
+                        <button class="flex items-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-slate-100 text-[12px] font-bold text-slate-600 rounded-full border border-slate-200/40 transition active:scale-95 cursor-pointer">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                            </svg>
+                            Attach
+                        </button>
+                        
+                        <!-- Writing Styles Button -->
+                        <div class="relative">
+                            <button id="writing-style-btn" class="flex items-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-slate-100 text-[12px] font-bold text-slate-600 rounded-full border border-slate-200/40 transition active:scale-95 cursor-pointer">
+                                Writing Styles
+                                <svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>
+                            
+                            <!-- Writing Styles Dropdown -->
+                            <div id="writing-style-menu" class="hidden absolute bottom-12 left-0 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl p-2 z-30 transform origin-bottom-left scale-95 opacity-0 transition-all">
+                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Professional')">💼 Professional</button>
+                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Casual')">😊 Casual</button>
+                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Academic')">🎓 Academic</button>
+                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Concise')">⚡ Concise</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <!-- Citation Toggle -->
+                        <div class="flex items-center gap-2 cursor-pointer" id="citation-toggle-wrapper">
+                            <span class="text-[12px] font-bold text-slate-500 select-none">Citation</span>
+                            <div id="citation-toggle" class="w-9 h-5 bg-purple-600 rounded-full p-0.5 transition duration-200 relative">
+                                <div id="citation-toggle-dot" class="w-4 h-4 bg-white rounded-full shadow-sm transition duration-200 transform translate-x-4"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Send Button -->
+                        <button id="send-btn" class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-sm cursor-pointer" title="Send Request">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="19" x2="12" y2="5"/>
+                                <polyline points="5 12 12 5 19 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Suggestions / Examples Section -->
+            <div class="w-full mt-12 flex flex-col gap-4">
+                <span class="text-[11px] font-bold tracking-widest text-slate-400/90 uppercase text-left">GET STARTED WITH AN EXAMPLE BELOW</span>
+                
+                <div class="grid grid-cols-4 gap-4 w-full">
+                    <!-- Card 1 -->
+                    <div class="suggestion-card bg-[#f4f6fa]/60 border border-slate-200/25 hover:border-slate-200 hover:bg-[#f4f6fa]/95 p-4 rounded-2xl h-[135px] flex flex-col justify-between transition duration-200 cursor-pointer shadow-sm/5 hover:-translate-y-0.5" data-prompt="Write a to-do list for a personal project">
+                        <p class="text-[13px] font-medium text-slate-600 leading-[1.4] pr-2">Write a to-do list for a personal project</p>
+                        <div class="text-slate-400">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="suggestion-card bg-[#f4f6fa]/60 border border-slate-200/25 hover:border-slate-200 hover:bg-[#f4f6fa]/95 p-4 rounded-2xl h-[135px] flex flex-col justify-between transition duration-200 cursor-pointer shadow-sm/5 hover:-translate-y-0.5" data-prompt="Generate an email to reply to a job offer">
+                        <p class="text-[13px] font-medium text-slate-600 leading-[1.4] pr-2">Generate an email to reply to a job offer</p>
+                        <div class="text-slate-400">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="suggestion-card bg-[#f4f6fa]/60 border border-slate-200/25 hover:border-slate-200 hover:bg-[#f4f6fa]/95 p-4 rounded-2xl h-[135px] flex flex-col justify-between transition duration-200 cursor-pointer shadow-sm/5 hover:-translate-y-0.5" data-prompt="Summarize this article in one paragraph">
+                        <p class="text-[13px] font-medium text-slate-600 leading-[1.4] pr-2">Summarize this article in one paragraph</p>
+                        <div class="text-slate-400">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 4 -->
+                    <div class="suggestion-card bg-[#f4f6fa]/60 border border-slate-200/25 hover:border-slate-200 hover:bg-[#f4f6fa]/95 p-4 rounded-2xl h-[135px] flex flex-col justify-between transition duration-200 cursor-pointer shadow-sm/5 hover:-translate-y-0.5" data-prompt="How does AI work in a technical capacity">
+                        <p class="text-[13px] font-medium text-slate-600 leading-[1.4] pr-2">How does AI work in a technical capacity</p>
+                        <div class="text-slate-400">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- MICRO TOAST NOTIFICATION CONTAINER -->
+<div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform translate-y-20 opacity-0 transition duration-300 z-50 pointer-events-none text-sm font-semibold">
+    <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-message">New thread started</span>
+</div>
+
+<!-- INTERACTIVE SCRIPTS -->
+<script>
+    // 1. Sidebar Tabs Navigation Active Switcher
+    const tabs = document.querySelectorAll('.sidebar-tab');
+    const activeIndicator = document.getElementById('active-indicator');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active classes from all
+            tabs.forEach(t => {
+                t.classList.remove('bg-purple-50', 'text-purple-600', 'border-purple-100/60');
+                t.classList.add('text-slate-400');
+                // Remove indicator inside this button if any
+                const ind = t.querySelector('#active-indicator');
+                if (ind) ind.remove();
+            });
+            
+            // Add active classes to clicked
+            tab.classList.remove('text-slate-400');
+            tab.classList.add('bg-purple-50', 'text-purple-600', 'border-purple-100/60');
+            
+            // Add active indicator span
+            const span = document.createElement('span');
+            span.id = 'active-indicator';
+            span.className = 'absolute left-[-8px] w-[3px] h-6 bg-purple-600 rounded-r-full transition-transform';
+            tab.appendChild(span);
+        });
+    });
+
+
+    // 3. Writing Style Dropdown Toggle
+    const styleBtn = document.getElementById('writing-style-btn');
+    const styleMenu = document.getElementById('writing-style-menu');
+    
+    styleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !styleMenu.classList.contains('hidden');
+        closeAllDropdowns();
+        if (!isOpen) {
+            styleMenu.classList.remove('hidden');
+            setTimeout(() => {
+                styleMenu.classList.remove('scale-95', 'opacity-0');
+                styleMenu.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+    });
+
+    function selectStyle(styleName) {
+        styleBtn.innerHTML = `${styleName} <svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+        showToast(`Writing style: ${styleName}`);
+        closeAllDropdowns();
+    }
+
+    // Close all dropdowns when clicking outside
+    document.addEventListener('click', () => {
+        closeAllDropdowns();
+    });
+
+    function closeAllDropdowns() {
+        if (styleMenu) {
+            styleMenu.classList.remove('scale-100', 'opacity-100');
+            styleMenu.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                styleMenu.classList.add('hidden');
+            }, 150);
+        }
+    }
+
+    // Prevent clicks inside dropdown menus from closing them
+    styleMenu.addEventListener('click', (e) => e.stopPropagation());
+
+    // 4. Citation Toggle
+    const citationWrapper = document.getElementById('citation-toggle-wrapper');
+    const citationToggle = document.getElementById('citation-toggle');
+    const citationDot = document.getElementById('citation-toggle-dot');
+    let citationActive = true; // Enabled by default in the image
+
+    citationWrapper.addEventListener('click', () => {
+        citationActive = !citationActive;
+        if (citationActive) {
+            citationToggle.classList.remove('bg-slate-300');
+            citationToggle.classList.add('bg-purple-600');
+            citationDot.classList.remove('translate-x-0');
+            citationDot.classList.add('translate-x-4');
+            showToast("Citation source enabled");
+        } else {
+            citationToggle.classList.remove('bg-purple-600');
+            citationToggle.classList.add('bg-slate-300');
+            citationDot.classList.remove('translate-x-4');
+            citationDot.classList.add('translate-x-0');
+            showToast("Citation source disabled");
+        }
+    });
+
+    // 5. Suggestion Cards clicking to paste prompt
+    const aiInput = document.getElementById('ai-input');
+    const cards = document.querySelectorAll('.suggestion-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const prompt = card.getAttribute('data-prompt');
+            aiInput.value = prompt;
+            aiInput.focus();
+            // Automatically resize height
+            aiInput.style.height = 'auto';
+            aiInput.style.height = aiInput.scrollHeight + 'px';
+        });
+    });
+
+    // 6. Dynamic Auto-Resizing Textarea
+    aiInput.addEventListener('input', () => {
+        aiInput.style.height = 'auto';
+        aiInput.style.height = aiInput.scrollHeight + 'px';
+    });
+
+    // 7. New Thread Button action
+    const newThreadBtn = document.getElementById('new-thread-btn');
+    newThreadBtn.addEventListener('click', () => {
+        aiInput.value = '';
+        aiInput.style.height = 'auto';
+        aiInput.focus();
+        showToast("New thread started");
+    });
+
+    // 8. Search Thread action
+    const searchBtn = document.getElementById('search-btn');
+    searchBtn.addEventListener('click', () => {
+        showToast("Opening search index...");
+    });
+
+    // 9. Invite action
+    const inviteBtn = document.getElementById('invite-btn');
+    inviteBtn.addEventListener('click', () => {
+        showToast("Invitation link copied!");
+    });
+
+    // 10. Send Action
+    const sendBtn = document.getElementById('send-btn');
+    sendBtn.addEventListener('click', () => {
+        if (aiInput.value.trim() === '') {
+            showToast("Please enter a question or request");
+            aiInput.focus();
+            return;
+        }
+        showToast("Processing request...");
+        aiInput.value = '';
+        aiInput.style.height = 'auto';
+    });
+
+    // Toast Utility function
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const msgSpan = document.getElementById('toast-message');
+        msgSpan.textContent = message;
+        
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        
+        setTimeout(() => {
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2500);
+    }
+</script>
+{% endblock %}
