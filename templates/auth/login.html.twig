@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign In - Lumeo{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex items-center justify-center bg-[#f8fafc] text-slate-800 antialiased selection:bg-purple-100 px-4">
+    <!-- Card Container -->
+    <div class="w-full max-w-[440px] bg-white border border-slate-200/50 rounded-[28px] shadow-[0_8px_30px_rgb(241,245,249,0.5)] p-8 md:p-10 flex flex-col gap-6">
+        
+        <!-- Logo & Header -->
+        <div class="flex flex-col items-center gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-sm hover:scale-105 transition duration-200 cursor-pointer" onclick="window.location.href = '/'">
+                <!-- Spoke Sunburst Logo -->
+                <svg class="w-7 h-7" viewBox="0 0 100 100" fill="currentColor">
+                    <circle cx="50" cy="50" r="10" />
+                    <g stroke="currentColor" stroke-width="6" stroke-linecap="round">
+                        <line x1="50" y1="20" x2="50" y2="8" />
+                        <line x1="50" y1="80" x2="50" y2="92" />
+                        <line x1="20" y1="50" x2="8" y2="50" />
+                        <line x1="80" y1="50" x2="92" y2="50" />
+                        <line x1="29" y1="29" x2="20" y2="20" />
+                        <line x1="71" y1="71" x2="80" y2="80" />
+                        <line x1="29" y1="71" x2="20" y2="80" />
+                        <line x1="71" y1="29" x2="80" y2="20" />
+                    </g>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-800">Welcome Back</h1>
+                <p class="text-[13px] text-slate-400 font-medium mt-1">Please enter your details to sign in</p>
+            </div>
+        </div>
+
+        <!-- Form (UI only) -->
+        <form class="flex flex-col gap-4.5" onsubmit="event.preventDefault(); window.location.href = '/';">
+            
+            <!-- Email -->
+            <div class="flex flex-col gap-1.5">
+                <label for="email" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Email Address</label>
+                <input type="email" id="email" class="w-full px-4 py-3 bg-slate-50/60 border border-slate-200/60 rounded-xl text-[14px] text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#ab51e5] focus:bg-white transition duration-200" placeholder="you@example.com">
+            </div>
+
+            <!-- Password -->
+            <div class="flex flex-col gap-1.5">
+                <div class="flex items-center justify-between">
+                    <label for="password" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Password</label>
+                    <a href="#" class="text-xs font-bold text-[#ab51e5] hover:underline" onclick="event.preventDefault();">Forgot password?</a>
+                </div>
+                <input type="password" id="password" class="w-full px-4 py-3 bg-slate-50/60 border border-slate-200/60 rounded-xl text-[14px] text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#ab51e5] focus:bg-white transition duration-200" placeholder="••••••••">
+            </div>
+
+            <!-- Remember Me checkbox -->
+            <div class="flex items-center gap-2 py-1 cursor-pointer select-none" onclick="const cb = document.getElementById('remember'); cb.checked = !cb.checked;">
+                <input type="checkbox" id="remember" class="w-4.5 h-4.5 border border-slate-300 rounded text-[#ab51e5] focus:ring-[#ab51e5] cursor-pointer" onclick="event.stopPropagation();">
+                <span class="text-xs font-bold text-slate-500">Keep me signed in</span>
+            </div>
+
+            <!-- Sign In button -->
+            <button type="submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-[14px] font-semibold shadow-sm transition active:scale-[0.98] cursor-pointer mt-2">
+                Sign In
+            </button>
+        </form>
+
+        <!-- Redirect to register -->
+        <div class="text-center text-xs font-bold text-slate-500 mt-1 select-none">
+            Don't have an account? 
+            <a href="{{ path('app_register') }}" class="text-[#ab51e5] hover:underline ml-0.5">Register</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
