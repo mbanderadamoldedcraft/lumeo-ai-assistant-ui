@@ -372,20 +372,8 @@
         }
     });
 
-    // 5. Suggestion Cards clicking to paste prompt
+    // 5. Suggestion Cards click handler removed
     const aiInput = document.getElementById('ai-input');
-    const cards = document.querySelectorAll('.suggestion-card');
-    
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            const prompt = card.getAttribute('data-prompt');
-            aiInput.value = prompt;
-            aiInput.focus();
-            // Automatically resize height
-            aiInput.style.height = 'auto';
-            aiInput.style.height = aiInput.scrollHeight + 'px';
-        });
-    });
 
     // 6. Dynamic Auto-Resizing Textarea
     aiInput.addEventListener('input', () => {
