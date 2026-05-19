@@ -310,17 +310,10 @@
     </main>
 </div>
 
-<!-- MICRO TOAST NOTIFICATION CONTAINER -->
-<div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform translate-y-20 opacity-0 transition duration-300 z-50 pointer-events-none text-sm font-semibold">
-    <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    <span id="toast-message">New thread started</span>
-</div>
-
 <!-- INTERACTIVE SCRIPTS -->
 <script>
     // 1. Sidebar Tabs Navigation Active Switcher
     const tabs = document.querySelectorAll('.sidebar-tab');
-    const activeIndicator = document.getElementById('active-indicator');
     
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -360,13 +353,11 @@
             citationToggle.classList.add('bg-purple-600');
             citationDot.classList.remove('translate-x-0');
             citationDot.classList.add('translate-x-4');
-            showToast("Citation source enabled");
         } else {
             citationToggle.classList.remove('bg-purple-600');
             citationToggle.classList.add('bg-slate-300');
             citationDot.classList.remove('translate-x-4');
             citationDot.classList.add('translate-x-0');
-            showToast("Citation source disabled");
         }
     });
 
@@ -397,47 +388,29 @@
         aiInput.value = '';
         aiInput.style.height = 'auto';
         aiInput.focus();
-        showToast("New thread started");
     });
 
     // 8. Search Thread action
     const searchBtn = document.getElementById('search-btn');
     searchBtn.addEventListener('click', () => {
-        showToast("Opening search index...");
+        // Search functionality
     });
 
     // 9. Invite action
     const inviteBtn = document.getElementById('invite-btn');
     inviteBtn.addEventListener('click', () => {
-        showToast("Invitation link copied!");
+        // Invite functionality
     });
 
     // 10. Send Action
     const sendBtn = document.getElementById('send-btn');
     sendBtn.addEventListener('click', () => {
         if (aiInput.value.trim() === '') {
-            showToast("Please enter a question or request");
             aiInput.focus();
             return;
         }
-        showToast("Processing request...");
         aiInput.value = '';
         aiInput.style.height = 'auto';
     });
-
-    // Toast Utility function
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        const msgSpan = document.getElementById('toast-message');
-        msgSpan.textContent = message;
-        
-        toast.classList.remove('translate-y-20', 'opacity-0');
-        toast.classList.add('translate-y-0', 'opacity-100');
-        
-        setTimeout(() => {
-            toast.classList.remove('translate-y-0', 'opacity-100');
-            toast.classList.add('translate-y-20', 'opacity-0');
-        }, 2500);
-    }
 </script>
 {% endblock %}
