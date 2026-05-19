@@ -222,22 +222,9 @@
                         </button>
                         
                         <!-- Writing Styles Button -->
-                        <div class="relative">
-                            <button id="writing-style-btn" class="flex items-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-slate-100 text-[12px] font-bold text-slate-600 rounded-full border border-slate-200/40 transition active:scale-95 cursor-pointer">
-                                Writing Styles
-                                <svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="6 9 12 15 18 9"/>
-                                </svg>
-                            </button>
-                            
-                            <!-- Writing Styles Dropdown -->
-                            <div id="writing-style-menu" class="hidden absolute bottom-12 left-0 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl p-2 z-30 transform origin-bottom-left scale-95 opacity-0 transition-all">
-                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Professional')">💼 Professional</button>
-                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Casual')">😊 Casual</button>
-                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Academic')">🎓 Academic</button>
-                                <button class="w-full px-3 py-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 transition cursor-pointer" onclick="selectStyle('Concise')">⚡ Concise</button>
-                            </div>
-                        </div>
+                        <button id="writing-style-btn" class="flex items-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-slate-100 text-[12px] font-bold text-slate-600 rounded-full border border-slate-200/40 transition active:scale-95 cursor-pointer">
+                            Writing Styles
+                        </button>
                     </div>
                     
                     <div class="flex items-center gap-3">
@@ -349,46 +336,6 @@
     });
 
 
-    // 3. Writing Style Dropdown Toggle
-    const styleBtn = document.getElementById('writing-style-btn');
-    const styleMenu = document.getElementById('writing-style-menu');
-    
-    styleBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = !styleMenu.classList.contains('hidden');
-        closeAllDropdowns();
-        if (!isOpen) {
-            styleMenu.classList.remove('hidden');
-            setTimeout(() => {
-                styleMenu.classList.remove('scale-95', 'opacity-0');
-                styleMenu.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-    });
-
-    function selectStyle(styleName) {
-        styleBtn.innerHTML = `${styleName} <svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
-        showToast(`Writing style: ${styleName}`);
-        closeAllDropdowns();
-    }
-
-    // Close all dropdowns when clicking outside
-    document.addEventListener('click', () => {
-        closeAllDropdowns();
-    });
-
-    function closeAllDropdowns() {
-        if (styleMenu) {
-            styleMenu.classList.remove('scale-100', 'opacity-100');
-            styleMenu.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                styleMenu.classList.add('hidden');
-            }, 150);
-        }
-    }
-
-    // Prevent clicks inside dropdown menus from closing them
-    styleMenu.addEventListener('click', (e) => e.stopPropagation());
 
     // 4. Citation Toggle
     const citationWrapper = document.getElementById('citation-toggle-wrapper');
