@@ -1,0 +1,24 @@
+# Nixpacks configuration for Symfony + Webpack Encore + Tailwind CSS
+providers = ["php", "node"]
+
+[phases.setup]
+# Ensure required system tools are available
+nixPkgs = ["php82", "nodejs", "composer"]
+
+[phases.install]
+# Install Composer dependencies and npm dependencies
+cmds = [
+  "composer install --no-dev --optimize-autoloader",
+  "npm ci --no-audit"
+]
+
+[phases.build]
+# Compile frontend assets (Webpack Encore + Tailwind CSS)
+cmds = [
+  "npm run build"
+]
+
+[variables]
+# Set standard web server routing settings for Symfony
+NIXPACKS_PHP_ROOT_DIR = "/app/public"
+NIXPACKS_PHP_FALLBACK_PATH = "/index.php"

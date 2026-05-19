@@ -1,0 +1,3 @@
+[deploy]
+# Runs Symfony migrations automatically after a successful build but before the new container version is active
+preDeployCommand = ["php bin/console doctrine:migrations:migrate --no-interaction"]
