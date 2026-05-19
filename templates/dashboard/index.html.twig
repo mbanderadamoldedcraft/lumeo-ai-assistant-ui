@@ -323,32 +323,6 @@
 
 <!-- INTERACTIVE SCRIPTS -->
 <script>
-    // 1. Sidebar Tabs Navigation Active Switcher
-    const tabs = document.querySelectorAll('.sidebar-tab');
-    
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active classes from all
-            tabs.forEach(t => {
-                t.classList.remove('bg-purple-50', 'text-purple-600', 'border-purple-100/60');
-                t.classList.add('text-slate-400');
-                // Remove indicator inside this button if any
-                const ind = t.querySelector('#active-indicator');
-                if (ind) ind.remove();
-            });
-            
-            // Add active classes to clicked
-            tab.classList.remove('text-slate-400');
-            tab.classList.add('bg-purple-50', 'text-purple-600', 'border-purple-100/60');
-            
-            // Add active indicator span
-            const span = document.createElement('span');
-            span.id = 'active-indicator';
-            span.className = 'absolute left-[-8px] w-[3px] h-6 bg-purple-600 rounded-r-full transition-transform';
-            tab.appendChild(span);
-        });
-    });
-
 
 
     // 4. Citation Toggle
