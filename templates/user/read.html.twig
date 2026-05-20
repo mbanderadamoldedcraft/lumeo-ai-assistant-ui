@@ -1,0 +1,90 @@
+{% extends 'dashboard_layout.html.twig' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+<div class="flex-1 flex flex-col px-8 py-10 w-full max-w-[1024px] mx-auto">
+    <div class="page-header py-6 flex justify-between items-center border-b border-slate-200 mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">User Details: {{ user.fullName ?: user.username }}</h1>
+            <p class="text-slate-500 text-sm mt-1">Detailed view of user attributes and permissions.</p>
+        </div>
+        <a href="{{ path('app_user_index') }}" class="px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-50 transition active:scale-95 shadow-sm">Back to List</a>
+    </div>
+
+    <div class="bg-white rounded-[24px] border border-slate-200/60 shadow-[0_8px_30px_rgb(241,245,249,0.6)] overflow-hidden p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-10">
+            <div class="flex flex-col border-b border-slate-100 pb-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Username</span>
+                <span class="text-slate-900 font-medium text-[15px]">{{ user.username }}</span>
+            </div>
+            <div class="flex flex-col border-b border-slate-100 pb-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Status</span>
+                <span class="inline-flex w-max items-center px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ user.isActive ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-500 border border-slate-200' }}">
+                    {{ user.isActive ? 'Active' : 'Inactive' }}
+                </span>
+            </div>
+            <div class="flex flex-col border-b border-slate-100 pb-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">First Name</span>
+                <span class="text-slate-900 font-medium text-[15px]">{{ user.firstName }}</span>
+            </div>
+            <div class="flex flex-col border-b border-slate-100 pb-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Last Name</span>
+                <span class="text-slate-900 font-medium text-[15px]">{{ user.lastName }}</span>
+            </div>
+            <div class="flex flex-col border-b border-slate-100 pb-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Email</span>
+                <span class="text-slate-900 font-medium text-[15px]">{{ user.email|default('-') }}</span>
+            </div>
+            <div class="flex flex-col border-b border-slate-100 pb-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Roles</span>
+                <span class="text-slate-900 font-medium text-[15px]">{{ user.roles|join(', ') }}</span>
+            </div>
+        </div>
+
+        <h3 class="text-[13px] font-bold text-slate-800 uppercase tracking-wider mb-5 border-b border-slate-100 pb-2">Permissions Overview</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10 p-6 bg-slate-50/50 rounded-2xl border border-slate-100">
+            {% set flags = {
+                'Access All Companies': user.isAccessAllCompany,
+                'Access All Branches': user.isAccessAllBranch,
+                'Access All BUs': user.isAccessAllBU,
+                'Access All Divisions': user.isAccessAllDivision,
+                'Access All Departments': user.isAccessAllDept,
+                'Access All Dept Units': user.isAccessAllDeptUnit,
+                'Access All Emp Types': user.isAccessAllEmpType,
+                'Is Deleted': user.isDeleted
+            } %}
+            
+            {% for label, value in flags %}
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-slate-100 shadow-sm transition hover:shadow-md">
+                    {% if value %}
+                        <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    {% else %}
+                        <div class="w-8 h-8 rounded-full bg-slate-50 text-slate-300 flex items-center justify-center shrink-0 border border-slate-100">
+                            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    {% endif %}
+                    <span class="text-[13px] font-semibold text-slate-700">{{ label }}</span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="flex items-center justify-end gap-4 pt-6 border-t border-slate-200">
+            <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this user?');" class="inline-block">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                <button class="px-5 py-2.5 bg-white text-red-600 border border-red-200 rounded-xl text-[14px] font-bold hover:bg-red-50 hover:border-red-300 transition shadow-sm active:scale-95">Delete User</button>
+            </form>
+            <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="px-5 py-2.5 bg-purple-600 text-white rounded-xl text-[14px] font-bold hover:bg-purple-700 transition shadow-sm active:scale-95 flex items-center gap-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Edit User
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
