@@ -1,2 +1,5 @@
 [build]
 buildCommand = "COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload && npm run build"
+
+[deploy]
+releaseCommand = "php bin/console doctrine:migrations:migrate --no-interaction"
